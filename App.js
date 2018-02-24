@@ -11,11 +11,14 @@
 
 
 import React from 'react';
-import { Alert, AppRegistry, Image, StyleSheet, Text, View, Button } from 'react-native';
+import { Alert, AppRegistry, Image, StyleSheet, Text, View, Button, TouchableHighlight, ActivityIndicator } from 'react-native';
 
 export default class App extends React.Component {
   _onPressButton() {
     Alert.alert('You tapped the button!')
+  }
+  _onLongPressButton() {
+    Alert.alert("You pressed the button for a long")
   }
   render() {
     console.log("Logs are forwarded too!")
@@ -24,6 +27,7 @@ export default class App extends React.Component {
     };
     return (
       <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff"/>
         <Image source={pic} style={{width: 193, height: 110}}/>
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
@@ -38,6 +42,16 @@ export default class App extends React.Component {
         <Blink text='Yes blinking is so great' />
         <Blink text='Why did they ever take this out of HTML' />
         <Blink text='Look at me look at me look at me' />
+        <View style={long_button_press.button_container}>
+          <TouchableHighlight
+            onPress={this._onPressButton}
+            onLongPress={this._onLongPressButton}>
+            <View style={long_button_press.this_button}>
+              <Text style={long_button_press.butttonText}>Press <Text style={{color: '#FCB51E'}}>Me</Text> First</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+        
         <View style={styles_button.container}>
           <Button
             onPress={this._onPressButton}
@@ -47,6 +61,7 @@ export default class App extends React.Component {
         <View style={styles_button.buttonContainer}>
           <Button
             onPress={this._onPressButton}
+            onLongPress={this._onLongPressButton}
             title="Press Me"
             color="#841584"
           />
@@ -117,6 +132,22 @@ const styles_button = StyleSheet.create({
     margin: 20,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  }
+})
+
+const long_button_press = StyleSheet.create({
+  button_container:{
+    paddingTop: 60,
+    alignItems: "center"
+  },
+  this_button:{
+    width: 150,
+    alignItems: "center",
+    backgroundColor: "#2196F3"
+  },
+  buttonText:{
+    padding: 20,
+    color: "white"
   }
 })
 
